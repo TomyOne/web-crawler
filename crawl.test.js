@@ -1,5 +1,5 @@
 const { test, expect } = require("@jest/globals");
-const { normalizeURL } = require("./crawl.js");
+const { normalizeURL, getURLsFromHTML } = require("./crawl.js");
 
 test("Check normalize URL 1", () => {
   const urls = [
@@ -17,4 +17,14 @@ test("Check normalize URL 1", () => {
     console.log(`Checking: ${url}`);
     expect(normalizeURL(url)).toBe(normalizedUrl);
   });
+});
+
+test("Check URLs from html", () => {
+  async function fetchHtml(url) {
+    const res = await fetch(url);
+    const html = await res.text();
+    return html;
+  }
+  const data = fetchHtml("https://blog.boot.dev/");
+  console.log(data);
 });
